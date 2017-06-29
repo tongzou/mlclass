@@ -36,7 +36,7 @@ y = np.array([[0],[1],[1],[0]])
 #y = np.array([[1]])
 
 np.random.seed(1)
-eta = 0.5
+eta = 1.0
 
 # randomly initialize our weights with mean 0
 #w1 = 2*np.random.random((3,4)) - 1
@@ -60,7 +60,7 @@ for j in xrange(600000):
     da2 = a2-y
     #print 'da2=', da2
 
-    if (j% 10000) == 0:
+    if (j % 10000) == 0:
         print "Error:" + str(np.mean(np.abs(da2)))
 
     # in what direction is the target value?
@@ -80,5 +80,11 @@ for j in xrange(600000):
     #dx = dz1.dot(w1.T)
     #print 'dx=', dx
 
-    w2 -= eta*a1.T.dot(dz2)
-    w1 -= eta*X.T.dot(dz1)
+    dw2 = a1.T.dot(dz2)
+    #print 'dw2=', dw2
+
+    dw1 = X.T.dot(dz1)
+    #print 'dw1=', dw1
+
+    w2 -= 4*dw2/4
+    w1 -= 4*dw1/4
