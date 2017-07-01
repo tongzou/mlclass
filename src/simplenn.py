@@ -72,7 +72,7 @@ for j in xrange(600000):
     dz1 = da1 * sigmoid_prime(z1)
     #print 'dz1=', dz1
 
-    dx = dz1.dot(w1.T)
+    #dx = dz1.dot(w1.T)
     #print 'dx=', dx
 
     dw2 = a1.T.dot(dz2)
