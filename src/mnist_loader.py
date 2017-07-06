@@ -10,7 +10,8 @@ function usually called by our neural network code.
 
 #### Libraries
 # Standard library
-import cPickle
+#import cPickle
+import pickle
 import gzip
 
 # Third-party libraries
@@ -40,7 +41,7 @@ def load_data():
     below.
     """
     f = gzip.open('../data/mnist.pkl.gz', 'rb')
-    training_data, validation_data, test_data = cPickle.load(f)
+    training_data, validation_data, test_data = pickle.load(f, encoding='latin1')
     f.close()
     return (training_data, validation_data, test_data)
 
@@ -75,6 +76,16 @@ def load_data_wrapper():
     #test_data = zip(test_inputs, te_d[1])
     #return (training_data, validation_data, test_data
     return (training_inputs, training_results, validation_inputs, va_d[1].T, test_inputs, te_d[1].T)
+
+def load_data_keras():
+    tr_d, va_d, te_d = load_data()
+    training_inputs = [np.reshape(x, (784)).tolist() for x in tr_d[0]]
+    training_results = [vectorized_result(y).tolist() for y in tr_d[1]]
+    validation_inputs = [np.reshape(x, (784)).tolist() for x in va_d[0]]
+    validation_results = [vectorized_result(y).tolist() for y in va_d[1]]
+    test_inputs = [np.reshape(x, (784)).tolist() for x in te_d[0]]
+    test_results = [vectorized_result(y).tolist() for y in te_d[1]]
+    return (training_inputs, training_results, validation_inputs, validation_results, test_inputs, test_results)
 
 def vectorized_result(j):
     """Return a 10-dimensional unit vector with a 1.0 in the jth
