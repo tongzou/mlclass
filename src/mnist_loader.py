@@ -87,6 +87,10 @@ def load_data_keras():
     test_results = [vectorized_result(y).tolist() for y in te_d[1]]
     return (training_inputs, training_results, validation_inputs, validation_results, test_inputs, test_results)
 
+def load_data_cnn():
+    tr_d, va_d, te_d = load_data()
+    print(np.shape(tr_d[0]))
+
 def vectorized_result(j):
     """Return a 10-dimensional unit vector with a 1.0 in the jth
     position and zeroes elsewhere.  This is used to convert a digit
